@@ -16,6 +16,7 @@ const userSchema = new mongoose.Schema(
         },
         biography: {
             type: String,
+            default: '',
         },
         name: {
             type: String,
