@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const hashPassword = require('../../utils/funcs/hashPassword');
 
-const userModel = new mongoose.Schema(
+const userSchema = new mongoose.Schema(
     {
         email: {
             type: String,
@@ -50,11 +50,23 @@ const userModel = new mongoose.Schema(
     },
 );
 
-userModel.pre('save', async function (next) {
+userSchema.pre('save', async function (next) {
     this.password = await hashPassword(this.password);
     next();
 });
+userSchema.methods.changedPasswordAfter = function (JWTTimestamp) {
+    if (this.passwordChangedAt) {
+        const changedTimestamp = parseInt(
+            this.passwordChangedAt.getTime() / 1000,
+            10,
+        );
 
-const model = mongoose.model('User', userModel);
+        return JWTTimestamp < changedTimestamp;
+    }
 
-module.exports = model;
+    // False means NOT changed
+    return false;
+};
+const User = mongoose.model('User', userSchema);
+
+module.exports = User;
