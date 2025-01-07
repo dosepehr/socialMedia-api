@@ -10,7 +10,7 @@ const express = require('express');
 const morgan = require('morgan');
 const cors = require('cors');
 //* routes & error handling
-const { globalErrorHandler } = require('./modules/Error/error.controller');
+const { globalErrorHandler } = require('./modules/Error/errorController');
 const AppError = require('./utils/classes/AppError');
 
 //* security
