@@ -1,7 +1,7 @@
 const expressAsyncHandler = require("express-async-handler");
 const AppError = require("../classes/AppError");
 const verifyToken = require("../funcs/verifyToken");
-
+const User = require('../../modules/User/userModel')
 const protect = expressAsyncHandler(async (req, res, next) => {
     // 1) Getting token and check of it's there
     let token;
