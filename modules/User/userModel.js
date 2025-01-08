@@ -70,4 +70,10 @@ userSchema.methods.changedPasswordAfter = function (JWTTimestamp) {
 };
 const User = mongoose.model('User', userSchema);
 
+userSchema.virtual('posts', {
+    ref: 'Post', // Refers to the Post model
+    foreignField: 'user', // Links to the 'user' field in the Post schema
+    localField: '_id', // Matches the '_id' field of the User schema
+});
+
 module.exports = User;

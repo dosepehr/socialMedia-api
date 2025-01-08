@@ -4,7 +4,7 @@ const expressAsyncHandler = require('express-async-handler');
 
 const resizeImage = expressAsyncHandler(async (req, res, next) => {
     if (!req.file) return next();
-    const filename = `${Date.now()}-cover.png`;
+    const filename = `${Date.now()}.png`;
     const outputPath = path.join('public/uploads', filename);
 
     await sharp(req.file.buffer)
