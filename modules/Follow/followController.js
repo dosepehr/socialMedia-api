@@ -14,3 +14,16 @@ exports.addFollow = expressAsyncHandler(async (req, res, next) => {
         message: 'created',
     });
 });
+exports.unfollow = expressAsyncHandler(async (req, res, next) => {
+    const follower = req.user._id;
+    const { following } = req.body;
+
+    await Follow.deleteOne({
+        follower,
+        following,
+    });
+    res.status(201).json({
+        status: true,
+        message: 'user unfollowed',
+    });
+});

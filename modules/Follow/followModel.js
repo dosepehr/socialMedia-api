@@ -19,7 +19,8 @@ const followSchema = new mongoose.Schema(
         timestamps: true,
     },
 );
-
+// Create a compound index to enforce unique combination of follower and following
+followSchema.index({ follower: 1, following: 1 }, { unique: true });
 const Follow = mongoose.model('Follow', followSchema);
 
 module.exports = Follow;
