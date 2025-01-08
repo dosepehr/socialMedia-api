@@ -1,7 +1,6 @@
 const multer = require('multer');
 const path = require('path');
 
-
 const uploader = (fields, maxFileSize) => {
     const storage = multer.memoryStorage(); // Use memory storage for optional processing
 
