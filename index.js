@@ -24,6 +24,7 @@ const hpp = require('hpp');
 const compression = require('compression');
 const authRouter = require('./modules/Auth/authRouter');
 const postRouter = require('./modules/Post/PostRouter');
+const pageRouter = require('./modules/Page/pageRouter');
 
 const limiter = rateLimit({
     windowMs: 60 * 60 * 1000, // 15 minutes
@@ -78,6 +79,7 @@ app.route('/').all((_, res) => {
 });
 app.use('/api/v1/auth', authRouter);
 app.use('/api/v1/posts', postRouter);
+app.use('/api/v1/pages', pageRouter);
 
 //* 404 route
 app.all('*', async (req, res, next) => {

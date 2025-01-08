@@ -89,7 +89,7 @@ exports.getOne = (Model, condition = {}, populateOptions = []) => {
             });
         }
 
-        const data = await query;
+        const data = await query.lean();
 
         if (!data) {
             return res.status(404).json({
