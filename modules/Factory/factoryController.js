@@ -17,6 +17,7 @@ exports.deleteOne = (Model) => {
 
 exports.addOne = (Model, validation) => {
     return expressAsyncHandler(async (req, res, next) => {
+        req.body.user = req.user._id;
         if (validation) {
             await validation.validate(req.body);
         }
