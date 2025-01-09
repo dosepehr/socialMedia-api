@@ -1,7 +1,6 @@
 const expressAsyncHandler = require('express-async-handler');
 const User = require('../User/userModel');
 const signToken = require('../../utils/funcs/signToken');
-const comparePassword = require('../../utils/funcs/comparePassword');
 const Email = require('../../utils/classes/Email');
 const comparePassword = require('../../utils/funcs/comparePassword');
 
@@ -63,9 +62,5 @@ exports.login = expressAsyncHandler(async (req, res, next) => {
         .status(200)
         .json({
             status: true,
-<<<<<<< HEAD
-            token,
-=======
->>>>>>> be689be6da4fc5cc50b64e2c1bd9da86f2a9c7e4
         });
 });
