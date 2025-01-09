@@ -1,6 +1,6 @@
 const expressAsyncHandler = require('express-async-handler');
 const mongoose = require('mongoose');
-
+const Follow = require('../Follow/followModel');
 exports.getPage = expressAsyncHandler(async (req, res, next) => {
     const { id } = req.params;
 
@@ -76,5 +76,45 @@ exports.getPage = expressAsyncHandler(async (req, res, next) => {
     res.status(200).json({
         status: true,
         data: data[0], // Since aggregation returns an array, use the first element
+    });
+});
+
+exports.getFollowings = expressAsyncHandler(async (req, res, next) => {
+    const { id } = req.params;
+    const followings = await Follow.find({
+        following: id,
+    })
+        .populate({
+            path: 'follower',
+            model: 'User',
+            select: 'profilePicture name username',
+        })
+        .lean()
+        .select('-_id follower');
+
+    const data = followings.map((follow) => follow.follower);
+    
+    res.status(200).json({
+        status: true,
+        data,
+    });
+});
+exports.getFollowers = expressAsyncHandler(async (req, res, next) => {
+    const { id } = req.params;
+    const followers = await Follow.find({
+        follower: id,
+    })
+        .populate({
+            path: 'following',
+            model: 'User',
+            select: 'profilePicture name username',
+        })
+        .lean()
+        .select('-_id following');
+
+    const data = followers.map((follow) => follow.following);
+    res.status(200).json({
+        status: true,
+        data,
     });
 });
